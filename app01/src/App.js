@@ -1,32 +1,22 @@
-import React from 'react'
+import React,{useState} from 'react'
+import Led from './componentes/Led'
 
-import Eu from './componentes/Imgs/eu.jpg'
 
 
 export default function App(){
-    let date = new Date
-    const ano = date.getFullYear()
-    let hora = date.getHours()
-    const canal=()=>{
-      return('Estamos em ')
-    }
 
-    function curso(){
-      return `Agora são ${hora} horas`
-    }
+  const [ligado,setLigado] =useState(false)
+
+  const cancelar= (obj) =>{
+    return obj.preventDefault()
+  }
+
   return(
     <>
-    <section>
-      <header>
-        <p>{canal()} {ano}</p>
-        <br/>
-        <p>{curso()}</p>
-        </header>
-        <div>
-          <img src={Eu} alt=""></img>
-          <img src="/Img/morte.png"></img>
-        </div>
-      </section>
+        <Led ligado={ligado} setLigado={setLigado}/>
+        <a href="https://github.com/LuizSeabraDeMarco" target="_blank" onClick={(e) => cancelar(e)}><br></br>
+          Meu GitHub
+        </a>
     </>
   )
 }
