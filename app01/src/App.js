@@ -1,22 +1,66 @@
 import React,{useState} from 'react'
-import Led from './componentes/Led'
 
+export default function App() {
 
+  const [log,setLog]=useState(false)
 
-export default function App(){
+  const [cor,setCor]=useState(1)
 
-  const [ligado,setLigado] =useState(false)
+  const vermelho={color:'red'}
+  const azul={color:'blue'}
+  const verde={color:'green'}
 
-  const cancelar= (obj) =>{
-    return obj.preventDefault()
+  const retornaCor=(c)=>{
+    if(c == 1){
+      return vermelho
+    } else if(c == 2){
+      return verde
+    }else{
+      return azul
+    }
   }
+
+  const mudaCor =()=>{
+    setCor(cor + 1)
+    if (cor > 2){
+      setCor(1)
+    }
+  }
+
+  const msglogin=()=>{
+    return 'Usuario Logado'
+  }
+  const msglogoff=()=>{
+    return 'Usuario Deslogado'
+  }
+  
+  const cumprimento=()=>{
+    const hora=new Date().getHours()
+
+    if (hora >=0 && hora < 13){
+      return(
+        <p>Bom dia</p>
+      )
+    }else if (hora >=13 && hora < 18){
+      return(
+        <p>Boa tarde</p>
+      )
+    }else{
+      return(
+        <p>Boa noite</p>
+      )
+    }
+  }
+  setInterval(mudaCor,1000)
 
   return(
     <>
-        <Led ligado={ligado} setLigado={setLigado}/>
-        <a href="https://github.com/LuizSeabraDeMarco" target="_blank" onClick={(e) => cancelar(e)}><br></br>
-          Meu GitHub
-        </a>
+      {cumprimento()}
+      <p>{log?msglogin():msglogoff()}</p>
+      <button onClick={()=>setLog(!log)}>{log?'Login':'Logoff'}</button>
+      <h1 style={retornaCor(cor)}>Mudando de cor</h1>
+      <button onClick={()=> mudaCor()}>Mudar de Cor</button>
     </>
-  )
+  );
+
 }
